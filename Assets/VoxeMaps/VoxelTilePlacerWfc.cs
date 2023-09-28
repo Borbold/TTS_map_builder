@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-/*[CustomEditor(typeof(VoxelTilePlacerWfc))]
+[CustomEditor(typeof(VoxelTilePlacerWfc))]
 public class VoxelTilePlacerWfcEditor : Editor {
     private VoxelTilePlacerWfc VTPW;
 
@@ -23,7 +23,7 @@ public class VoxelTilePlacerWfcEditor : Editor {
             VTPW.DeleteMap();
         }
     }
-}*/
+}
 
 public class VoxelTilePlacerWfc : MonoBehaviour
 {
@@ -36,6 +36,7 @@ public class VoxelTilePlacerWfc : MonoBehaviour
 
     private Queue<Vector2Int> recalcPossibleTilesQueue = new Queue<Vector2Int>();
     private List<VoxelTile>[,] possibleTiles;
+    private Vector3 transformVectorOffset = Vector3.right * 5;
 
     public void CreateMap() {
         spawnedTiles = new VoxelTile[MapSize.x, MapSize.y];
@@ -55,7 +56,7 @@ public class VoxelTilePlacerWfc : MonoBehaviour
                     TilePrefabs[i].Weight /= 2;
                     if(TilePrefabs[i].Weight <= 0) TilePrefabs[i].Weight = 1;
 
-                    clone = Instantiate(TilePrefabs[i], TilePrefabs[i].transform.position + Vector3.right,
+                    clone = Instantiate(TilePrefabs[i], TilePrefabs[i].transform.position + transformVectorOffset,
                         Quaternion.identity);
                     clone.Rotate90();
                     TilePrefabs.Add(clone);
@@ -65,18 +66,18 @@ public class VoxelTilePlacerWfc : MonoBehaviour
                     TilePrefabs[i].Weight /= 4;
                     if(TilePrefabs[i].Weight <= 0) TilePrefabs[i].Weight = 1;
 
-                    clone = Instantiate(TilePrefabs[i], TilePrefabs[i].transform.position + Vector3.right,
+                    clone = Instantiate(TilePrefabs[i], TilePrefabs[i].transform.position + transformVectorOffset,
                         Quaternion.identity);
                     clone.Rotate90();
                     TilePrefabs.Add(clone);
 
-                    clone = Instantiate(TilePrefabs[i], TilePrefabs[i].transform.position + Vector3.right * 2,
+                    clone = Instantiate(TilePrefabs[i], TilePrefabs[i].transform.position + transformVectorOffset * 2,
                         Quaternion.identity);
                     clone.Rotate90();
                     clone.Rotate90();
                     TilePrefabs.Add(clone);
 
-                    clone = Instantiate(TilePrefabs[i], TilePrefabs[i].transform.position + Vector3.right * 3,
+                    clone = Instantiate(TilePrefabs[i], TilePrefabs[i].transform.position + transformVectorOffset * 3,
                         Quaternion.identity);
                     clone.Rotate90();
                     clone.Rotate90();
